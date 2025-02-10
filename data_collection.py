@@ -24,6 +24,9 @@ def tracks_to_dataframe(tracks):
     data = []
     for item in tracks:
         track = item.get('track', {})
+        # Skip non-track items (e.g., episodes or local files without valid IDs)
+        if track.get('type') != 'track':
+            continue
         data.append({
             'played_at': item.get('played_at'),
             'track_id': track.get('id'),
